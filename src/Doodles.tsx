@@ -1,19 +1,13 @@
 import { useState, useEffect } from 'react'
 import { fetchDoodles } from './api/fetchDoodles'
-import { useInfiniteQuery } from '@tanstack/react-query'
 import {
     useQuery,
-    useMutation,
-    useQueryClient,
-    QueryClient,
-    QueryClientProvider,
 } from '@tanstack/react-query'
+import { Pagination, Image } from '@mantine/core';
 import './App.css'
 
 export function Doodles() {
     const [page, setPage] = useState(1)
-
-    const queryClient = useQueryClient()
 
     const {
         isLoading,
@@ -22,11 +16,11 @@ export function Doodles() {
         data,
         isFetching,
         isPreviousData,
-      } = useQuery({
+    } = useQuery({
         queryKey: ['doodles', page],
         queryFn: () => fetchDoodles({ pageParam: page }),
-        keepPreviousData : true
-      })
+        keepPreviousData: true
+    })
 
     useEffect(() => {
         console.log("data", data)
@@ -38,14 +32,22 @@ export function Doodles() {
 
     return (
         <div className="App">
-            <div>
-                hello
-            </div>
-            <button
-                onClick={handleNextPage}
-            >
-                Next Page
-            </button>
+            {data &&
+                <div>
+                    {data.map((doodle: any) => (
+                        <div key={doodle.id}>
+                            <Image
+                                width={300}
+                                src={doodle.url}
+                                withPlaceholder
+                                fit="contain"
+                            />
+                            <div style={{margin: 20}}/>
+                        </div>
+                    ))}
+                </div>
+            }
+            <Pagination page={page} onChange={setPage} total={10} />
         </div>
     )
 }
