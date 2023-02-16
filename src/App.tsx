@@ -2,7 +2,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
-import { Doodles } from './Doodles'
+import { Doodles } from './components/Doodles'
 import './App.css'
 
 function App() {
