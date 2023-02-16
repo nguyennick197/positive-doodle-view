@@ -1,15 +1,20 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { fetchDoodles } from '../api/fetchDoodles'
 import {
     useQuery,
 } from '@tanstack/react-query'
-import { Pagination, Image, Flex, Space, Card, Group, Text } from '@mantine/core';
+import { Pagination, Flex, Space, TextInput, Container } from '@mantine/core';
 import '../App.css'
 import { DoodleGrid } from './DoodleGrid';
 import { DoodleCard } from './DoodleCard';
+import { useDebounce } from '../hooks/useDebounce';
+import { SearchIcon } from './SearchIcon';
 
 export function Doodles() {
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(1);
+    const [perPage, setPerPage] = useState(8);
+    const [search, setSearch] = useState("");
+    const debouncedSearch = useDebounce(search, 1000);
 
     const {
         isLoading,
@@ -19,24 +24,47 @@ export function Doodles() {
         isFetching,
         isPreviousData,
     } = useQuery({
-        queryKey: ['doodles', page],
-        queryFn: () => fetchDoodles({ pageParam: page }),
+        queryKey: ['doodles', `${page}-${[perPage]}-${debouncedSearch}`],
+        queryFn: () => fetchDoodles({ pageParam: page, per_page: perPage, search: debouncedSearch }),
         keepPreviousData: true
     })
+
+    useEffect(() => {
+        setPage(1);
+    }, [debouncedSearch])
 
     useEffect(() => {
         console.log("data", data)
     }, [data])
 
+    const totalPages = useMemo(() => {
+        if (!data || !data.total_items) return 1;
+        return Math.ceil(data.total_items / perPage);
+    }, [data])
+
     return (
-        <div className="App">
-            {data &&
+        <>
+            <Container size={320} >
+                <TextInput
+                    placeholder="Search"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    rightSection={<SearchIcon />}
+                />;
+            </Container>
+
+            {isLoading &&
+                <p> Loading... </p>
+            }
+            {!isLoading &&
                 <DoodleGrid>
                     {data.data.map((doodle: any) => (
-                        <DoodleCard 
+                        <DoodleCard
                             id={doodle.id}
-                            url={doodle.url}
                             tags={doodle.tags}
+                            tumblr_image_url={doodle.tumblr_image_url}
+                            background_color={doodle.background_color}
+                            key={doodle.id}
                         />
                     ))}
                 </DoodleGrid>
@@ -46,7 +74,7 @@ export function Doodles() {
                 <Pagination
                     page={page}
                     onChange={setPage}
-                    total={98}
+                    total={totalPages}
                     disabled={isLoading || isFetching}
                     getItemAriaLabel={(page) => {
                         switch (page) {
@@ -66,6 +94,6 @@ export function Doodles() {
                     }}
                 />
             </Flex>
-        </div>
+        </>
     )
 }

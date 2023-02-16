@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const HeartButton = styled.button<{ active: boolean }>`
+export const SvgButton = styled.button<{ active: boolean, isHeart?: boolean }>`
   background: none;
   border: none;
   cursor: pointer;
@@ -8,9 +8,6 @@ export const HeartButton = styled.button<{ active: boolean }>`
   transition: transform 0.2s ease-out;
   padding: 0;
   margin: 0;
-  position: absolute;
-  top: 0;
-  right: 0;
 
   &:hover {
     transform: scale(1.2);
@@ -24,12 +21,14 @@ export const HeartButton = styled.button<{ active: boolean }>`
     outline: none;
   }
 
-  svg {
-    fill: ${props => (props.active ? 'red' : 'gray')};
-    transition: fill 0.2s ease-out;
-
-    &:hover {
-      fill: ${props => (props.active ? 'red' : 'darkgray')};
-    }
-  }
+  ${props => (props.isHeart && (
+    `svg {
+      fill: ${props.active ? 'red' : 'gray'};
+      transition: fill 0.2s ease-out;
+  
+      &:hover {
+        fill: ${props.active ? 'red' : 'darkgray'};
+      }
+    }`
+  ))}
 `;
