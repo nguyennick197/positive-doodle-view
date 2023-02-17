@@ -8,8 +8,10 @@ import '../App.css'
 import { DoodleGrid } from './DoodleGrid';
 import { DoodleCard } from './DoodleCard';
 import { useDebounce } from '../hooks/useDebounce';
-import { SearchIcon } from './SearchIcon';
 import { PaginationComponent } from './PaginationComponent';
+import { HeaderContainer } from './HeaderContainer';
+import { ContentContainer } from './ContentContainer';
+import { SearchBar } from './SearchBar';
 
 export function Doodles() {
     const [page, setPage] = useState<number | string>(1);
@@ -52,40 +54,34 @@ export function Doodles() {
     }, [data])
 
     return (
-        <>
-            <Container size={320} >
-                <TextInput
-                    placeholder="Search"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    rightSection={<SearchIcon />}
-                />;
-            </Container>
-
-            {isLoading &&
-                <p> Loading... </p>
-            }
-            {!isLoading &&
-                <DoodleGrid>
-                    {data.data.map((doodle: any) => (
-                        <DoodleCard
-                            id={doodle.id}
-                            tags={doodle.tags}
-                            tumblr_image_url={doodle.tumblr_image_url}
-                            background_color={doodle.background_color}
-                            key={doodle.id}
-                        />
-                    ))}
-                </DoodleGrid>
-            }
-            <Space h={80} />
-            <PaginationComponent 
-                page={page}
-                setPage={setPage}
-                totalPages={totalPages}
-                totalItems={totalItems}
-                isLoading={isLoading}
-            />
-        </>
+        <div>
+            <HeaderContainer search={search} setSearch={setSearch} />
+            <ContentContainer>
+                {isLoading &&
+                    <p> Loading... </p>
+                }
+                {!isLoading &&
+                    <DoodleGrid>
+                        {data.data.map((doodle: any) => (
+                            <DoodleCard
+                                id={doodle.id}
+                                tags={doodle.tags}
+                                tumblr_image_url={doodle.tumblr_image_url}
+                                background_color={doodle.background_color}
+                                key={doodle.id}
+                            />
+                        ))}
+                    </DoodleGrid>
+                }
+                </ContentContainer>
+                <Space h={80} />
+                <PaginationComponent
+                    page={page}
+                    setPage={setPage}
+                    totalPages={totalPages}
+                    totalItems={totalItems}
+                    isLoading={isLoading}
+                />
+        </div>
     )
 }
