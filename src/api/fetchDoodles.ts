@@ -1,5 +1,5 @@
 type fetchDoodleParams = {
-    pageParam: number;
+    pageParam: number | string;
     per_page: number;
     search?: string;
 }
@@ -9,7 +9,6 @@ export async function fetchDoodles({
      per_page = 8,
      search
 }: fetchDoodleParams) {
-    console.log("Fetching...", pageParam, per_page, search)
     let url = `${import.meta.env.VITE_DOODLES_API}/doodles?page=${pageParam}&per_page=${per_page}&order=descending`;
     if (search) {
         url += `&search=${search}`;

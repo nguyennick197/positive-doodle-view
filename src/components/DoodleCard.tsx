@@ -28,7 +28,7 @@ export const DoodleCard = ({
     }, [background_color]);
 
     return (
-        <Card id={`${id}`} shadow="sm" p="lg" radius="md">
+        <Card id={`${id}`} shadow="sm" style={{width: 320}}>
             <Card.Section style={{ backgroundColor }}>
                 <Image
                     alt="Positive Doodle"

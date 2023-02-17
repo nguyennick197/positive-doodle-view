@@ -3,18 +3,21 @@ import { fetchDoodles } from '../api/fetchDoodles'
 import {
     useQuery,
 } from '@tanstack/react-query'
-import { Pagination, Flex, Space, TextInput, Container } from '@mantine/core';
+import { Space, TextInput, Container } from '@mantine/core';
 import '../App.css'
 import { DoodleGrid } from './DoodleGrid';
 import { DoodleCard } from './DoodleCard';
 import { useDebounce } from '../hooks/useDebounce';
 import { SearchIcon } from './SearchIcon';
+import { PaginationComponent } from './PaginationComponent';
 
 export function Doodles() {
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState<number | string>(1);
     const [perPage, setPerPage] = useState(8);
     const [search, setSearch] = useState("");
     const debouncedSearch = useDebounce(search, 1000);
+
+    const queryKey = page ? ['doodles', `${page}-${[perPage]}-${debouncedSearch}`] : undefined;
 
     const {
         isLoading,
@@ -24,7 +27,7 @@ export function Doodles() {
         isFetching,
         isPreviousData,
     } = useQuery({
-        queryKey: ['doodles', `${page}-${[perPage]}-${debouncedSearch}`],
+        queryKey: queryKey,
         queryFn: () => fetchDoodles({ pageParam: page, per_page: perPage, search: debouncedSearch }),
         keepPreviousData: true
     })
@@ -37,9 +40,15 @@ export function Doodles() {
         console.log("data", data)
     }, [data])
 
-    const totalPages = useMemo(() => {
-        if (!data || !data.total_items) return 1;
-        return Math.ceil(data.total_items / perPage);
+    const { totalItems, totalPages } = useMemo(() => {
+        if (!data || !data.total_items) return {
+            totalItems: "--",
+            totalPages: 1
+        };
+        return {
+            totalPages: Math.ceil(data.total_items / perPage),
+            totalItems: data.total_items
+        }
     }, [data])
 
     return (
@@ -69,31 +78,14 @@ export function Doodles() {
                     ))}
                 </DoodleGrid>
             }
-            <Space h="md" />
-            <Flex align="center" justify="center">
-                <Pagination
-                    page={page}
-                    onChange={setPage}
-                    total={totalPages}
-                    disabled={isLoading || isFetching}
-                    getItemAriaLabel={(page) => {
-                        switch (page) {
-                            case 'dots':
-                                return 'dots element aria-label';
-                            case 'prev':
-                                return 'previous page button aria-label';
-                            case 'next':
-                                return 'next page button aria-label';
-                            case 'first':
-                                return 'first page button aria-label';
-                            case 'last':
-                                return 'last page button aria-label';
-                            default:
-                                return `${page} item aria-label`;
-                        }
-                    }}
-                />
-            </Flex>
+            <Space h={80} />
+            <PaginationComponent 
+                page={page}
+                setPage={setPage}
+                totalPages={totalPages}
+                totalItems={totalItems}
+                isLoading={isLoading}
+            />
         </>
     )
 }
