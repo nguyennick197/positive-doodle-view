@@ -1,8 +1,7 @@
-import { useMemo } from 'react';
-import { Image, Card, Group, Text, Space } from '@mantine/core';
+import { useMemo, useContext } from 'react';
+import { Image, Card, Group, Text } from '@mantine/core';
 import { LikeButton } from './LikeButton';
-import { DownloadButton } from './DownloadButton';
-import { SvgButton } from './SvgButton';
+import { FilterContext } from '../contexts/FilterContext';
 
 type DoodleCardProps = {
     id: number;
@@ -17,6 +16,8 @@ export const DoodleCard = ({
     tumblr_image_url,
     background_color
 }: DoodleCardProps) => {
+    const { setTag, setPage } = useContext(FilterContext);
+
     const splitTags = tags.split(",");
 
     const backgroundColor = useMemo(() => {
@@ -24,8 +25,13 @@ export const DoodleCard = ({
             const [red, green, blue] = background_color;
             return `rgb(${red},${green},${blue})`;
         }
-        return "#fff"
+        return "#fff";
     }, [background_color]);
+
+    const handleTagClick = (tag: string) => {
+        setPage(1);
+        setTag(tag);
+    }
 
     return (
         <Card id={`${id}`} shadow="sm" style={{width: 320}}>
@@ -47,7 +53,13 @@ export const DoodleCard = ({
             </Group>
             <div style={{ maxWidth: 280, display: "flex", gap: 6, flexWrap: "wrap" }}>
                 {splitTags.map(tag => (
-                    <Text color="blue" key={tag}> #{tag} </Text>
+                    <Text
+                        color="blue"
+                        key={tag}
+                        onClick={() => handleTagClick(tag)}
+                    > 
+                        #{tag}
+                    </Text>
                 ))}
             </div>
         </Card>

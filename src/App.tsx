@@ -2,8 +2,9 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
-import { Doodles } from './components/Doodles'
+import { Home } from './components/Home'
 import './App.css'
+import { FilterContextProvider } from './contexts/FilterContext'
 
 function App() {
 
@@ -11,7 +12,9 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Doodles />
+      <FilterContextProvider>
+        <Home />
+      </FilterContextProvider>
     </QueryClientProvider>
   )
 }

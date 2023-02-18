@@ -1,37 +1,43 @@
-import { useState, useEffect, Dispatch, SetStateAction} from "react";
+import { useState, useEffect, useContext, Dispatch, SetStateAction} from "react";
 import { Button, Text, NumberInput } from "@mantine/core";
 import { useDebounce } from "../hooks/useDebounce";
 import { PaginationContainer } from "./PaginationContainer";
+import { FilterContext } from "../contexts/FilterContext";
 
 type PaginationProps = {
-    page: number | string;
-    setPage: Dispatch<SetStateAction<number | string>>
     totalPages: number;
     totalItems: number;
     isLoading: boolean;
 }
 
+const initialPage = new URLSearchParams(window.location.search).get("page");
+
 export const PaginationComponent = ({
-    page,
-    setPage,
     totalPages,
     totalItems,
     isLoading,
 }: PaginationProps) => {
-    const [newPage, setNewPage] = useState<number | string>(page);
-    const debouncedPage = useDebounce(newPage, 1000);
+    const { page, setPage } = useContext(FilterContext);
 
-    useEffect(() => {
-        if (debouncedPage === undefined) return;
-        setPage(debouncedPage);
-    }, [debouncedPage])
+    const [newPage, setNewPage] = useState<number | string>(initialPage || 1);
+
+    // const debouncedPage = useDebounce(newPage, 0);
+
+    // useEffect(() => {
+    //     if (debouncedPage === undefined) return;
+    //     setPage(debouncedPage);
+    // }, [debouncedPage]);
+
+    // useEffect(() => {
+    //     console.log("newpage", newPage);
+    // }, [newPage])
 
     useEffect(() => {
         setNewPage(page);
-    }, [page])
+    }, [page]);
 
     const handleChange = (newPage: number | undefined) => {
-        setNewPage(newPage || "");
+        setPage(newPage || "");
     }
 
     const handlePrev = () => {
