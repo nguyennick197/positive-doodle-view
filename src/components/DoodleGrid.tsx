@@ -16,7 +16,7 @@ export const DoodleGrid = styled.div`
             gap: 40px;
         }
 
-        @media (min-width: 980px) {
+        @media (min-width: 1000px) {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;

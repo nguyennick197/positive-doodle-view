@@ -57,7 +57,7 @@ export const PaginationComponent = ({
             > ← </Button>
             <Text> Page </Text>
             <NumberInput
-                value={newPage as number}
+                value={parseInt(newPage as string)}
                 min={1}
                 max={totalPages}
                 onChange={handleChange}

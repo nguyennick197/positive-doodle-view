@@ -1,18 +1,21 @@
 import { useEffect, useMemo, createContext, useContext } from 'react';
-import { Space } from '@mantine/core';
+import { Space, Flex, Text } from '@mantine/core';
 import { PaginationComponent } from './PaginationComponent';
 import { HeaderContainer } from './HeaderContainer';
 import { ContentContainer } from './ContentContainer';
 import { Doodles } from './Doodles';
 import { useDoodleQuery } from '../hooks/useDoodleQuery';
 import { FilterContext } from '../contexts/FilterContext';
+import { SearchInput } from './SearchInput';
+import { TagSelect } from './TagSelect';
 import '../App.css'
+import { LikeButton } from './LikeButton';
 
 
 export function Home() {
-    const { 
-        page, 
-        perPage, 
+    const {
+        page,
+        perPage,
         debouncedSearch,
         tag
     } = useContext(FilterContext)
@@ -34,6 +37,7 @@ export function Home() {
         <div>
             <HeaderContainer />
             <ContentContainer>
+                <Space h={30} />
                 <Doodles
                     isLoading={isLoading}
                     data={data?.data}

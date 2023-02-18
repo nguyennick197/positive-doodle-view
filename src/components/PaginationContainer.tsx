@@ -13,7 +13,7 @@ export const PaginationContainer = styled.div`
 
     @media (max-width: 576px) {
         gap: 6px;
-        padding: 10px;
+        padding: 6px;
         font-size: 14px;
 
         button {
