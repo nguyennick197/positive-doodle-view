@@ -1,15 +1,14 @@
-import { useEffect, useMemo, createContext, useContext } from 'react';
-import { Space, Flex, Text } from '@mantine/core';
-import { PaginationComponent } from './PaginationComponent';
-import { HeaderContainer } from './HeaderContainer';
-import { ContentContainer } from './ContentContainer';
-import { Doodles } from './Doodles';
-import { useDoodleQuery } from '../hooks/useDoodleQuery';
-import { FilterContext } from '../contexts/FilterContext';
-import { SearchInput } from './SearchInput';
-import { TagSelect } from './TagSelect';
-import '../App.css'
-import { LikeButton } from './LikeButton';
+import { useMemo, useContext } from 'react';
+import { Space } from '@mantine/core';
+import { PaginationComponent } from '../organisms/PaginationComponent';
+import { HeaderContainer } from '../organisms/HeaderContainer';
+import { ContentContainer } from '../atoms/ContentContainer';
+import { Doodles } from '../organisms/Doodles';
+import { useDoodleQuery } from '../../hooks/useDoodleQuery';
+import { FilterContext } from '../../contexts/FilterContext';
+import { FavoritesContextProvider } from '../../contexts/FavoritesContext';
+import '../../App.css'
+
 
 
 export function Home() {
@@ -38,10 +37,12 @@ export function Home() {
             <HeaderContainer />
             <ContentContainer>
                 <Space h={30} />
-                <Doodles
-                    isLoading={isLoading}
-                    data={data?.data}
-                />
+                <FavoritesContextProvider>
+                    <Doodles
+                        isLoading={isLoading}
+                        data={data?.data}
+                    />
+                </FavoritesContextProvider>
             </ContentContainer>
             <Space h={80} />
             <PaginationComponent

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { SvgButton } from "./SvgButton";
-import { HeartIcon } from "../icons/HeartIcon";
+import { SvgButton } from "../atoms/SvgButton";
+import { HeartIcon } from "../../icons/HeartIcon";
 
 type LikeButtonProps = {
     liked: boolean;

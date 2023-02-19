@@ -1,9 +1,10 @@
 import { useMemo, useContext } from 'react';
 import { Image, Card, Group, Text } from '@mantine/core';
-import { LikeButton } from './LikeButton';
-import { FilterContext } from '../contexts/FilterContext';
-import { FavoritesContext } from '../contexts/FavoritesContext';
-import { SavedDoodle } from '../utils/types';
+import { LikeButton } from '../molecules/LikeButton';
+import { FilterContext } from '../../contexts/FilterContext';
+import { FavoritesContext } from '../../contexts/FavoritesContext';
+import { SavedDoodle } from '../../utils/types';
+import { Tag } from '../atoms/Tag';
 
 type DoodleCardProps = {
     id: number;
@@ -65,14 +66,11 @@ export const DoodleCard = ({
             </Group>
             <div style={{ maxWidth: 280, display: "flex", gap: 6, flexWrap: "wrap" }}>
                 {splitTags.map(tag => (
-                    <Text
-                        color="blue"
-                        key={tag}
-                        onClick={() => handleTagClick(tag)}
-                        style={{ cursor: "pointer" }}
-                    > 
-                        #{tag}
-                    </Text>
+                    <Tag
+                        key={`${id}-${tag}`}
+                        tag={tag}
+                        handleTagClick={handleTagClick}
+                    />
                 ))}
             </div>
         </Card>

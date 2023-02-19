@@ -2,8 +2,8 @@ import { useMemo, useContext } from "react";
 import styled from "@emotion/styled";
 import { MultiSelect } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
-import { fetchTags } from "../api/fetchTags";
-import { FilterContext } from "../contexts/FilterContext";
+import { fetchTags } from "../../api/fetchTags";
+import { FilterContext } from "../../contexts/FilterContext";
 
 const StyledSelect = styled(MultiSelect)`
     width: 200px;

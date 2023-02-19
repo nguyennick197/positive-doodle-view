@@ -2,10 +2,9 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
-import { Home } from './components/Home'
+import { Home } from './components/pages/Home'
 import './App.css'
 import { FilterContextProvider } from './contexts/FilterContext'
-import { FavoritesContextProvider } from './contexts/FavoritesContext'
 
 function App() {
 
@@ -14,9 +13,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <FilterContextProvider>
-        <FavoritesContextProvider>
-          <Home />
-        </FavoritesContextProvider>
+        <Home />
       </FilterContextProvider>
     </QueryClientProvider>
   )

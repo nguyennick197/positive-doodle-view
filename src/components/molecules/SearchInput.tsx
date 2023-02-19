@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { TextInput } from "@mantine/core"
-import { FilterContext } from "../contexts/FilterContext";
+import { FilterContext } from "../../contexts/FilterContext";
 
 export const SearchInput = () => {
     const { search, setSearch } = useContext(FilterContext);

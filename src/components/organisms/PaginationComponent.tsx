@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext, Dispatch, SetStateAction} from "react";
 import { Button, Text, NumberInput } from "@mantine/core";
-import { useDebounce } from "../hooks/useDebounce";
-import { PaginationContainer } from "./PaginationContainer";
-import { FilterContext } from "../contexts/FilterContext";
+import { useDebounce } from "../../hooks/useDebounce";
+import { PaginationContainer } from "../atoms/PaginationContainer";
+import { FilterContext } from "../../contexts/FilterContext";
 
 type PaginationProps = {
     totalPages: number;

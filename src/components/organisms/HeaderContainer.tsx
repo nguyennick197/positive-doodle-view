@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { Space, Button, Flex, Switch } from "@mantine/core";
-import { SearchInput } from "./SearchInput";
-import { TagSelect } from "./TagSelect";
-import { HeartIcon } from "../icons/HeartIcon";
-import { SettingsIcon } from "../icons/SettingsIcon";
-import { useWindowSize } from "../hooks/useWindowSize";
+import { SearchInput } from "../molecules/SearchInput";
+import { TagSelect } from "../molecules/TagSelect";
+import { HeartIcon } from "../../icons/HeartIcon";
+import { SettingsIcon } from "../../icons/SettingsIcon";
+import { useWindowSize } from "../../hooks/useWindowSize";
 
 export const StickyHeader = styled.div`
     position: fixed;

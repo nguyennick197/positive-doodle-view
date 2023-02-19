@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 import { Text, Flex } from "@mantine/core";
-import { DoodleGrid } from "./DoodleGrid";
+import { DoodleGrid } from "../atoms/DoodleGrid";
 import { DoodleCard } from "./DoodleCard";
-import { Doodle } from "../utils/types";
+import { Doodle } from "../../utils/types";
 
 type DoodlesProps = {
     isLoading: boolean;

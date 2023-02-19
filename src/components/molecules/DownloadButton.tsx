@@ -1,4 +1,4 @@
-import { SvgButton } from "./SvgButton";
+import { SvgButton } from "./atoms/SvgButton";
 import { DownloadIcon } from "../icons/DownloadIcon";
 
 export const DownloadButton = () => {
