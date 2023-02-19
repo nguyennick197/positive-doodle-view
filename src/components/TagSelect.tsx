@@ -25,7 +25,6 @@ export const TagSelect = () => {
     });
 
     const tagSelection = useMemo(() => {
-        console.log(data?.data)
         if (data?.data) {
             return data.data.map((item: any) => item.tag);
         }
@@ -34,6 +33,10 @@ export const TagSelect = () => {
 
     const handleSelectChange = (value: string[]) => {
         setPage(1);
+        if (!value[0]) {
+            setTag("");
+            return;
+        }
         setTag(value[0]);
     }
 

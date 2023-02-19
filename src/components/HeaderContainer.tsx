@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
-import { Space, Button, Flex } from "@mantine/core";
-import { Dispatch, SetStateAction } from "react";
+import { Space, Button, Flex, Switch } from "@mantine/core";
 import { SearchInput } from "./SearchInput";
 import { TagSelect } from "./TagSelect";
 import { HeartIcon } from "../icons/HeartIcon";
+import { SettingsIcon } from "../icons/SettingsIcon";
+import { useWindowSize } from "../hooks/useWindowSize";
 
 export const StickyHeader = styled.div`
     position: fixed;
@@ -39,6 +40,8 @@ export const StickyHeader = styled.div`
 `
 
 export const HeaderContainer = () => {
+    const windowSize = useWindowSize();
+
     return (
         <StickyHeader>
             <Flex justify="space-between" align="center">
@@ -46,16 +49,31 @@ export const HeaderContainer = () => {
                     <h1> Positive Doodles </h1>
                     <p> originally drawn by <a href="https://www.patreon.com/emmnotemma" target="_blank"> Emm Roy </a> </p>
                 </div>
-                <SearchInput />
-                <TagSelect />
-                <Flex>
-                    <Button
-                        rightIcon={<HeartIcon fill="red" />}
-                    >
-                        Favorites
-                    </Button>
-                    <Space w={40} />
-                </Flex>
+                {windowSize > 800 && (
+                    <>
+                        <SearchInput />
+                        <TagSelect />
+                        <Flex>
+                            <Switch
+                                size="md"
+                                onLabel={<HeartIcon size="20" fill="red" />}
+                                offLabel={<HeartIcon size="20" fill="grey" />}
+                            />
+                            <Space w={40} />
+                        </Flex>
+                    </>
+                )}
+                {windowSize < 800 && (
+                    <Flex>
+                        <Button
+                              leftIcon={<SettingsIcon size="20" />}
+                        >
+                            Filters
+                        </Button>
+                        <Space w={40} />
+
+                    </Flex>
+                )}
             </Flex>
 
         </StickyHeader>

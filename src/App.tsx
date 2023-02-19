@@ -5,6 +5,7 @@ import {
 import { Home } from './components/Home'
 import './App.css'
 import { FilterContextProvider } from './contexts/FilterContext'
+import { FavoritesContextProvider } from './contexts/FavoritesContext'
 
 function App() {
 
@@ -13,7 +14,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <FilterContextProvider>
-        <Home />
+        <FavoritesContextProvider>
+          <Home />
+        </FavoritesContextProvider>
       </FilterContextProvider>
     </QueryClientProvider>
   )

@@ -7,3 +7,8 @@ export type Doodle = {
     background_color: number[];
     created_at: string;
 }
+
+export type SavedDoodle = {
+    id: number;
+    dateAdded: Date;
+}

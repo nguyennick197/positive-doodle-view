@@ -2,6 +2,8 @@ import { useMemo, useContext } from 'react';
 import { Image, Card, Group, Text } from '@mantine/core';
 import { LikeButton } from './LikeButton';
 import { FilterContext } from '../contexts/FilterContext';
+import { FavoritesContext } from '../contexts/FavoritesContext';
+import { SavedDoodle } from '../utils/types';
 
 type DoodleCardProps = {
     id: number;
@@ -17,8 +19,7 @@ export const DoodleCard = ({
     background_color
 }: DoodleCardProps) => {
     const { setTag, setPage } = useContext(FilterContext);
-
-    const splitTags = tags.split(",");
+    const { favorites, addToFavorites, removeFromFavorites } = useContext(FavoritesContext);
 
     const backgroundColor = useMemo(() => {
         if (background_color) {
@@ -28,10 +29,21 @@ export const DoodleCard = ({
         return "#fff";
     }, [background_color]);
 
+    const isFavorite = useMemo(() => {
+        return favorites.some((doodle: SavedDoodle)=> doodle.id === id);
+    }, [favorites])
+
+    const handleLikeClick = () => {
+        if (!isFavorite) addToFavorites(id);
+        else removeFromFavorites(id);
+    }
+
     const handleTagClick = (tag: string) => {
         setPage(1);
         setTag(tag);
     }
+
+    const splitTags = tags.split(",");
 
     return (
         <Card id={`${id}`} shadow="sm" style={{width: 320}}>
@@ -48,7 +60,7 @@ export const DoodleCard = ({
             <Group position="apart" mt="md" mb="xs" style={{ position: "relative" }}>
                 <div style={{ display: "flex", gap: 8, justifyContent: "end", width: "100%"}}>
                     {/* <DownloadButton /> */}
-                    <LikeButton />
+                    <LikeButton handleClick={handleLikeClick} liked={isFavorite} />
                 </div>
             </Group>
             <div style={{ maxWidth: 280, display: "flex", gap: 6, flexWrap: "wrap" }}>
@@ -57,6 +69,7 @@ export const DoodleCard = ({
                         color="blue"
                         key={tag}
                         onClick={() => handleTagClick(tag)}
+                        style={{ cursor: "pointer" }}
                     > 
                         #{tag}
                     </Text>

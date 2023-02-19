@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import { Text, Flex } from "@mantine/core";
 import { DoodleGrid } from "./DoodleGrid";
 import { DoodleCard } from "./DoodleCard";
-import { Doodle } from "../types";
+import { Doodle } from "../utils/types";
 
 type DoodlesProps = {
     isLoading: boolean;
@@ -14,7 +14,9 @@ export const Doodles = ({
     data,
 }: DoodlesProps) => {
     if (isLoading) return (
-        <Text> Loading... </Text>
+        <Flex justify="center" align="center">
+            <Text c="white"> Loading... </Text>
+        </Flex>
     )
 
     if (!data || data?.length === 0) return (

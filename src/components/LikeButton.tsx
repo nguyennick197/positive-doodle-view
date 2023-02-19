@@ -4,15 +4,17 @@ import { HeartIcon } from "../icons/HeartIcon";
 
 type LikeButtonProps = {
     liked: boolean;
-    handleLikeClick: () => void;
+    handleClick: () => void;
 }
 
-export const LikeButton = (): JSX.Element => {
-    const [liked, setLiked] = useState(false);
+export const LikeButton = ({
+    liked,
+    handleClick
+}: LikeButtonProps): JSX.Element => {
 
-    const handleLikeClick = (): void => {
-        setLiked(!liked);
-    };
+    const handleLikeClick = () => {
+        handleClick && handleClick();
+    }
 
     return (
         <SvgButton active={liked} onClick={handleLikeClick} isHeart>

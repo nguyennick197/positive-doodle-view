@@ -13,17 +13,19 @@ export const useFilters = () => {
     const debouncedSearch = useDebounce(search, 1000);
 
     useEffect(() => {
+        console.log(tag, typeof tag)
         const urlSearchParams = new URLSearchParams(location.search);
-        page && urlSearchParams.set('page', page as string);
-        tag && urlSearchParams.set('tag', tag);
+        if (!page || page === 1) urlSearchParams.delete('page');
+        else urlSearchParams.set('page', page as string);
+        if (!tag) urlSearchParams.delete('tag');
+        else urlSearchParams.set('tag', tag);
         const newUrl = `${location.pathname}?${urlSearchParams.toString()}`;
         window.history.replaceState({}, '', newUrl);
     }, [page, tag]);
 
     useEffect(() => {
-        console.log("Debounce renders: ", debounceRenders);
         setDebounceRenders(prev => prev + 1);
-        if (debounceRenders < 3) return;
+        if (debounceRenders < 3) return; // skip the first two debounce renders 
         setPage(1);
     }, [debouncedSearch])
 
@@ -33,9 +35,9 @@ export const useFilters = () => {
 
     return {
         page, setPage,
-        perPage,
+        perPage, setPerPage,
         search, setSearch,
         tag, setTag,
-        debouncedSearch
+        debouncedSearch,
     }
 }
