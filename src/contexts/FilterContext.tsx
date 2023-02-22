@@ -10,6 +10,11 @@ type FilterContextType = {
     setSearch:  Dispatch<SetStateAction<string>>;
     perPage: number;
     debouncedSearch: string | undefined;
+    filterModalOpened: boolean;
+    toggleFilterModalOpened: () => void;
+    showFavorites: boolean;
+    toggleFavorites: () => void;
+    clearFilters: () => void;
 }
 
 export const FilterContext = createContext<FilterContextType>({
@@ -20,7 +25,12 @@ export const FilterContext = createContext<FilterContextType>({
     search: "",
     setSearch: () => {},
     perPage: 8,
-    debouncedSearch: ""
+    debouncedSearch: "",
+    filterModalOpened: false,
+    toggleFilterModalOpened: () => {},
+    showFavorites: false,
+    toggleFavorites: () => {},
+    clearFilters: () => {}
 });
 
 export const FilterContextProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -30,6 +40,10 @@ export const FilterContextProvider: FC<PropsWithChildren> = ({ children }) => {
         search, setSearch, 
         perPage,
         debouncedSearch,
+        filterModalOpened,
+        toggleFilterModalOpened,
+        showFavorites, toggleFavorites,
+        clearFilters
     } = useFilters()
 
     return(
@@ -41,7 +55,12 @@ export const FilterContextProvider: FC<PropsWithChildren> = ({ children }) => {
             search,
             setSearch,
             perPage,
-            debouncedSearch
+            debouncedSearch,
+            filterModalOpened,
+            toggleFilterModalOpened,
+            showFavorites,
+            toggleFavorites,
+            clearFilters
         }}>
             {children}
         </FilterContext.Provider>

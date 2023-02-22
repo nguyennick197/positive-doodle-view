@@ -20,18 +20,14 @@ export const PaginationComponent = ({
     const { page, setPage } = useContext(FilterContext);
 
     const [newPage, setNewPage] = useState<number | string>(initialPage || 1);
-
+    
     // const debouncedPage = useDebounce(newPage, 0);
 
     // useEffect(() => {
     //     if (debouncedPage === undefined) return;
     //     setPage(debouncedPage);
     // }, [debouncedPage]);
-
-    // useEffect(() => {
-    //     console.log("newpage", newPage);
-    // }, [newPage])
-
+    
     useEffect(() => {
         setNewPage(page);
     }, [page]);

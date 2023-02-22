@@ -6,18 +6,21 @@ import { fetchTags } from "../../api/fetchTags";
 import { FilterContext } from "../../contexts/FilterContext";
 
 const StyledSelect = styled(MultiSelect)`
-    width: 200px;
-
-    @media (max-width: 576px) {
-        width: 130px;
-    }
+    max-width: 200px;
+    overflow: wrap;
 
     @media (min-width: 577px and max-width: 769px) {
         width: 160px;
     }
 `
 
-export const TagSelect = () => {
+type TagSelectProps = {
+    showLabel?: boolean;
+}
+
+export const TagSelect = ({
+    showLabel
+}: TagSelectProps) => {
     const { tag, setTag, setPage } = useContext(FilterContext);
 
     const { data } = useQuery(["tags"], fetchTags, {
@@ -28,7 +31,7 @@ export const TagSelect = () => {
         if (data?.data) {
             return data.data.map((item: any) => item.tag);
         }
-        return ["doodle", "cat"];
+        return [];
     }, [data?.data]);
 
     const handleSelectChange = (value: string[]) => {
@@ -42,14 +45,14 @@ export const TagSelect = () => {
 
     return (
         <StyledSelect
-            placeholder="Tag"
+            placeholder="Tags"
             data={tagSelection}
             value={[tag]}
             onChange={handleSelectChange}
             nothingFound="No tag found"
             searchable
-            styles={{ rightSection: { display: "none" } }}
             maxSelectedValues={1}
+            label={showLabel && "Tag"}
         />
     )
 }

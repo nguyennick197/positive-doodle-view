@@ -1,46 +1,17 @@
-import styled from "@emotion/styled";
+import { useContext } from "react";
 import { Space, Button, Flex, Switch } from "@mantine/core";
 import { SearchInput } from "../molecules/SearchInput";
 import { TagSelect } from "../molecules/TagSelect";
 import { HeartIcon } from "../../icons/HeartIcon";
 import { SettingsIcon } from "../../icons/SettingsIcon";
 import { useWindowSize } from "../../hooks/useWindowSize";
-
-export const StickyHeader = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 16px;
-    z-index: 10;
-    height: 54px;
-    background-color: white;
-    border: 1px solid black;
-
-    @media (max-width: 576px) {
-        padding: 8px;
-        height: 50px;
-    }
-
-    h1 {
-        margin: 0;
-        font-size: 32px;
-        background: -webkit-linear-gradient(#d8a6c7, #3B5785);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-
-        @media (max-width: 576px) {
-            font-size: 22px;
-        }
-    }
-
-    p {
-        margin: 0px;
-    }
-`
+import { StickyHeader } from "../atoms/StickyHeader";
+import { FilterContext } from "../../contexts/FilterContext";
 
 export const HeaderContainer = () => {
     const windowSize = useWindowSize();
+
+    const { toggleFilterModalOpened } = useContext(FilterContext)
 
     return (
         <StickyHeader>
@@ -64,14 +35,21 @@ export const HeaderContainer = () => {
                     </>
                 )}
                 {windowSize < 800 && (
-                    <Flex>
+                    <Flex gap={16}>
                         <Button
-                              leftIcon={<SettingsIcon size="20" />}
+                            leftIcon={<SettingsIcon size="20" />}
+                            onClick={toggleFilterModalOpened}
                         >
                             Filters
                         </Button>
-                        <Space w={40} />
-
+                        {/* <Button
+                            onClick={toggleFilterModalOpened}
+                            color="red"
+                            compact
+                        >
+                            Clear Filters
+                        </Button> */}
+                        <Space w={20} />
                     </Flex>
                 )}
             </Flex>

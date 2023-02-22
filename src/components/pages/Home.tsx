@@ -8,6 +8,7 @@ import { useDoodleQuery } from '../../hooks/useDoodleQuery';
 import { FilterContext } from '../../contexts/FilterContext';
 import { FavoritesContextProvider } from '../../contexts/FavoritesContext';
 import '../../App.css'
+import { FilterModal } from '../organisms/FilterModal';
 
 
 
@@ -16,7 +17,9 @@ export function Home() {
         page,
         perPage,
         debouncedSearch,
-        tag
+        tag,
+        filterModalOpened,
+        toggleFilterModalOpened
     } = useContext(FilterContext)
 
     const { data, isLoading } = useDoodleQuery({ page, perPage, debouncedSearch, tag });
@@ -50,6 +53,11 @@ export function Home() {
                 totalItems={totalItems}
                 isLoading={isLoading}
             />
+            <FilterModal
+                opened={filterModalOpened}
+                toggleOpened={toggleFilterModalOpened}
+            />
+
         </div>
     )
 }
