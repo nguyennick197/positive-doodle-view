@@ -1,54 +1,74 @@
-import { FC, PropsWithChildren, createContext, Dispatch, SetStateAction } from "react";
+import { FC, PropsWithChildren, createContext, Dispatch, SetStateAction, useContext, useState, useEffect } from "react";
 import { useFilters } from "../hooks/useFilters";
+import { FavoritesContext } from "./FavoritesContext";
+import { SavedDoodle } from "../utils/types";
 
 type FilterContextType = {
     page: string | number;
-    setPage:  Dispatch<SetStateAction<string | number>>;
+    setPage: Dispatch<SetStateAction<string | number>>;
     tag: string;
-    setTag:  Dispatch<SetStateAction<string>>;
+    setTag: Dispatch<SetStateAction<string>>;
     search: string;
-    setSearch:  Dispatch<SetStateAction<string>>;
+    setSearch: Dispatch<SetStateAction<string>>;
     perPage: number;
     debouncedSearch: string | undefined;
     filterModalOpened: boolean;
     toggleFilterModalOpened: () => void;
     showFavorites: boolean;
-    toggleFavorites: () => void;
+    setShowFavorites: Dispatch<SetStateAction<boolean>>;
     clearFilters: () => void;
+    favoritesFilter: string;
 }
 
 export const FilterContext = createContext<FilterContextType>({
     page: 1,
-    setPage: () => {},
+    setPage: () => { },
     tag: "",
-    setTag: () => {},
+    setTag: () => { },
     search: "",
-    setSearch: () => {},
+    setSearch: () => { },
     perPage: 8,
     debouncedSearch: "",
     filterModalOpened: false,
-    toggleFilterModalOpened: () => {},
+    toggleFilterModalOpened: () => { },
     showFavorites: false,
-    toggleFavorites: () => {},
-    clearFilters: () => {}
+    setShowFavorites: () => { },
+    clearFilters: () => { },
+    favoritesFilter: ""
 });
 
 export const FilterContextProvider: FC<PropsWithChildren> = ({ children }) => {
-    const { 
+    const {
         page, setPage,
         tag, setTag,
-        search, setSearch, 
+        search, setSearch,
         perPage,
         debouncedSearch,
         filterModalOpened,
         toggleFilterModalOpened,
-        showFavorites, toggleFavorites,
+        showFavorites, setShowFavorites,
         clearFilters
     } = useFilters()
 
-    return(
+    const [favoritesFilter, setFavoritesFilter] = useState<string>("");
+
+    const { favorites } = useContext(FavoritesContext);
+
+    useEffect(() => {
+        if (!showFavorites) {
+            setFavoritesFilter("");
+            return;
+        };
+        const favIds: number[] = [];
+        favorites.forEach((saved: SavedDoodle) => {
+            favIds.push(saved.id);
+        });
+        setFavoritesFilter(favIds.join(","));
+    }, [showFavorites]);
+
+    return (
         <FilterContext.Provider value={{
-            page, 
+            page,
             setPage,
             tag,
             setTag,
@@ -59,8 +79,9 @@ export const FilterContextProvider: FC<PropsWithChildren> = ({ children }) => {
             filterModalOpened,
             toggleFilterModalOpened,
             showFavorites,
-            toggleFavorites,
-            clearFilters
+            setShowFavorites,
+            clearFilters,
+            favoritesFilter
         }}>
             {children}
         </FilterContext.Provider>

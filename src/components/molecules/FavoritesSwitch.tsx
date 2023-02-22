@@ -11,7 +11,7 @@ export const FavoritesSwitch = ({
     showLabel 
 }: FavoritesSwitchProps) => {
 
-    const { showFavorites, toggleFavorites } = useContext(FilterContext);
+    const { showFavorites, setShowFavorites } = useContext(FilterContext);
 
     return (
         <Flex gap={12}>
@@ -21,7 +21,7 @@ export const FavoritesSwitch = ({
                 onLabel={<HeartIcon size="20" fill="red" />}
                 offLabel={<HeartIcon size="20" fill="grey" />}
                 checked={showFavorites}
-                onChange={toggleFavorites}
+                onChange={(event) => setShowFavorites(event.currentTarget.checked)}
             />
         </Flex>
     )

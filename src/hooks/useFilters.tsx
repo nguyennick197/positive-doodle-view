@@ -44,10 +44,6 @@ export const useFilters = () => {
         setFilterModalOpened(prev => !prev);
     }
 
-    const toggleFavorites = () => {
-        setShowFavorites(prev => !prev);
-    }
-
     const clearFilters = () => {
         setPage(1);
         setTag("");
@@ -63,7 +59,7 @@ export const useFilters = () => {
         debouncedSearch,
         filterModalOpened,
         toggleFilterModalOpened,
-        showFavorites, toggleFavorites,
+        showFavorites, setShowFavorites,
         clearFilters
     }
 }

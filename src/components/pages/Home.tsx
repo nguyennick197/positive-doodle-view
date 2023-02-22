@@ -19,10 +19,11 @@ export function Home() {
         debouncedSearch,
         tag,
         filterModalOpened,
-        toggleFilterModalOpened
+        toggleFilterModalOpened,
+        favoritesFilter
     } = useContext(FilterContext)
 
-    const { data, isLoading } = useDoodleQuery({ page, perPage, debouncedSearch, tag });
+    const { data, isLoading } = useDoodleQuery({ page, perPage, debouncedSearch, tag, favoritesFilter });
 
     const { totalItems, totalPages } = useMemo(() => {
         if (!data || !data.total_items) return {
@@ -40,12 +41,10 @@ export function Home() {
             <HeaderContainer />
             <ContentContainer>
                 <Space h={30} />
-                <FavoritesContextProvider>
-                    <Doodles
-                        isLoading={isLoading}
-                        data={data?.data}
-                    />
-                </FavoritesContextProvider>
+                <Doodles
+                    isLoading={isLoading}
+                    data={data?.data}
+                />
             </ContentContainer>
             <Space h={80} />
             <PaginationComponent

@@ -7,6 +7,7 @@ import { SettingsIcon } from "../../icons/SettingsIcon";
 import { useWindowSize } from "../../hooks/useWindowSize";
 import { StickyHeader } from "../atoms/StickyHeader";
 import { FilterContext } from "../../contexts/FilterContext";
+import { FavoritesSwitch } from "../molecules/FavoritesSwitch";
 
 export const HeaderContainer = () => {
     const windowSize = useWindowSize();
@@ -25,11 +26,7 @@ export const HeaderContainer = () => {
                         <SearchInput />
                         <TagSelect />
                         <Flex>
-                            <Switch
-                                size="md"
-                                onLabel={<HeartIcon size="20" fill="red" />}
-                                offLabel={<HeartIcon size="20" fill="grey" />}
-                            />
+                            <FavoritesSwitch />
                             <Space w={40} />
                         </Flex>
                     </>
