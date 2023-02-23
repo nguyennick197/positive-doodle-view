@@ -15,14 +15,20 @@ export const useFilters = () => {
     const debouncedSearch = useDebounce(search, 1000);
 
     useEffect(() => {
+        if (page === 1 && !tag && !debouncedSearch) {
+            window.history.replaceState({}, '', location.pathname);
+            return;
+        }
         const urlSearchParams = new URLSearchParams(location.search);
         if (!page || page === 1) urlSearchParams.delete('page');
         else urlSearchParams.set('page', page as string);
         if (!tag) urlSearchParams.delete('tag');
         else urlSearchParams.set('tag', tag);
+        if (!debouncedSearch) urlSearchParams.delete('search');
+        else urlSearchParams.set('search', debouncedSearch);
         const newUrl = `${location.pathname}?${urlSearchParams.toString()}`;
         window.history.replaceState({}, '', newUrl);
-    }, [page, tag]);
+    }, [page, tag, debouncedSearch]);
 
     useEffect(() => {
         if (debounceRenders < 3) {
