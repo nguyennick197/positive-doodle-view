@@ -1,5 +1,5 @@
 import { useMemo, useContext } from 'react';
-import { Image, Card, Group, Text } from '@mantine/core';
+import { Image, Card, Group, Flex } from '@mantine/core';
 import { LikeButton } from '../molecules/LikeButton';
 import { FilterContext } from '../../contexts/FilterContext';
 import { FavoritesContext } from '../../contexts/FavoritesContext';
@@ -59,12 +59,12 @@ export const DoodleCard = ({
                 />
             </Card.Section>
             <Group position="apart" mt="md" mb="xs" style={{ position: "relative" }}>
-                <div style={{ display: "flex", gap: 8, justifyContent: "end", width: "100%"}}>
+                <Flex gap={8} justify="end" style={{ width: "100%"}}>
                     {/* <DownloadButton /> */}
                     <LikeButton handleClick={handleLikeClick} liked={isFavorite} />
-                </div>
+                </Flex>
             </Group>
-            <div style={{ maxWidth: 280, display: "flex", gap: 6, flexWrap: "wrap" }}>
+            <Flex wrap="wrap" gap={6} style={{ maxWidth: 280 }}>
                 {splitTags.map(tag => (
                     <Tag
                         key={`${id}-${tag}`}
@@ -72,7 +72,7 @@ export const DoodleCard = ({
                         handleTagClick={handleTagClick}
                     />
                 ))}
-            </div>
+            </Flex>
         </Card>
     )
 }
