@@ -10,3 +10,8 @@ Web/mobile view that has positive doodles, originally drawn by Emm Roy. It has f
 
 ## Contributors 
  - [Nick Nguyen](https://github.com/nguyennick197)
+
+ ## Screenshots
+
+<img src="public/mobile_view.png" alt="Mobile View" width="300"/>
+<img src="public/web_view.png" alt="Web View" width="600"/>

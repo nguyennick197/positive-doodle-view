@@ -15,7 +15,7 @@ export const useFilters = () => {
     const debouncedSearch = useDebounce(search, 1000);
 
     useEffect(() => {
-        if (page === 1 && !tag && !debouncedSearch) {
+        if (page == 1 && !tag && !debouncedSearch) {
             window.history.replaceState({}, '', location.pathname);
             return;
         }
