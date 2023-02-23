@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import { Text, Flex } from "@mantine/core";
 import { DoodleGrid } from "../atoms/DoodleGrid";
 import { DoodleCard } from "./DoodleCard";

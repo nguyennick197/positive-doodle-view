@@ -1,18 +1,13 @@
-import { useContext } from "react";
-import { Space, Button, Flex, Switch } from "@mantine/core";
+import { Space, Flex } from "@mantine/core";
 import { SearchInput } from "../molecules/SearchInput";
 import { TagSelect } from "../molecules/TagSelect";
-import { HeartIcon } from "../../icons/HeartIcon";
-import { SettingsIcon } from "../../icons/SettingsIcon";
 import { useWindowSize } from "../../hooks/useWindowSize";
 import { StickyHeader } from "../atoms/StickyHeader";
-import { FilterContext } from "../../contexts/FilterContext";
 import { FavoritesSwitch } from "../molecules/FavoritesSwitch";
+import { FiltersButton } from "../molecules/FiltersButton";
 
 export const HeaderContainer = () => {
     const windowSize = useWindowSize();
-
-    const { toggleFilterModalOpened } = useContext(FilterContext)
 
     return (
         <StickyHeader>
@@ -33,19 +28,7 @@ export const HeaderContainer = () => {
                 )}
                 {windowSize < 800 && (
                     <Flex gap={16}>
-                        <Button
-                            leftIcon={<SettingsIcon size="20" />}
-                            onClick={toggleFilterModalOpened}
-                        >
-                            Filters
-                        </Button>
-                        {/* <Button
-                            onClick={toggleFilterModalOpened}
-                            color="red"
-                            compact
-                        >
-                            Clear Filters
-                        </Button> */}
+                        <FiltersButton />
                         <Space w={20} />
                     </Flex>
                 )}

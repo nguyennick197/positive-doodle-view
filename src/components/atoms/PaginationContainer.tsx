@@ -11,24 +11,9 @@ export const PaginationContainer = styled.div`
     justify-content: center;
     align-items: center;
 
-    @media (max-width: 576px) {
-        gap: 6px;
-        padding: 6px;
-        font-size: 14px;
 
-        button {
-            font-size: 16px;
-            padding: 0;
-            width: 40px;
-        }
 
-        input {
-            font-size: 12px
-            width: 100px;
-        }
-    }
-
-    @media (min-width: 577px) and (max-width: 768px) {
+    @media (max-width: 768px) {
         gap: 8px;
         padding: 15px;
 

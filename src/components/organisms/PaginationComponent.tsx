@@ -75,7 +75,7 @@ export const PaginationComponent = ({
                 onClick={handleNext}
                 disabled={isLoading || page == totalPages || page == ""}
             > → </Button>
-            <Text> {totalItems.toLocaleString()} doodles </Text>
+            {/* <Text> {totalItems.toLocaleString()} doodles </Text> */}
         </PaginationContainer>
     )
 }

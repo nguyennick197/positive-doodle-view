@@ -6,11 +6,8 @@ import { ContentContainer } from '../atoms/ContentContainer';
 import { Doodles } from '../organisms/Doodles';
 import { useDoodleQuery } from '../../hooks/useDoodleQuery';
 import { FilterContext } from '../../contexts/FilterContext';
-import { FavoritesContextProvider } from '../../contexts/FavoritesContext';
-import '../../App.css'
 import { FilterModal } from '../organisms/FilterModal';
-
-
+import '../../App.css'
 
 export function Home() {
     const {
