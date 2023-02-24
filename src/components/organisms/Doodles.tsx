@@ -24,7 +24,7 @@ export const Doodles = ({
 
     if (!data || data?.length === 0) return (
         <Flex justify="center" align="center" direction="column" gap={12}>
-            <Text fz="xl" c="white" fw={500}> Sorry! No doodles found for filters. Try a different search or tag. </Text>
+            <Text fz="xl" c="white" fw={500}> Sorry! No doodles found for your selected filters. Try a different search or tag, or removing one of them. </Text>
             <Button onClick={clearFilters} color="red">
                 Clear Filters
             </Button>
