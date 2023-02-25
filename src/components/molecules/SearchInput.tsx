@@ -21,6 +21,7 @@ export const SearchInput = ({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             icon={showSearchIcon && <SearchIcon />}
+            aria-label="Search Input"
         />
     )
 }

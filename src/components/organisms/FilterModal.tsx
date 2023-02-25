@@ -46,6 +46,7 @@ export const FilterModal = ({
                 <Button
                     color="red"
                     onClick={clearFilters}
+                    aria-label="Clear Filters Button"
                 >
                     Clear Filters
                 </Button>

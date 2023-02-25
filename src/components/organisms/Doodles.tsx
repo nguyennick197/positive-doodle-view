@@ -25,7 +25,7 @@ export const Doodles = ({
     if (!data || data?.length === 0) return (
         <Flex justify="center" align="center" direction="column" gap={12}>
             <Text fz="xl" c="white" fw={500}> Sorry! No doodles found for your selected filters. Try a different search or tag, or removing one of them. </Text>
-            <Button onClick={clearFilters} color="red">
+            <Button onClick={clearFilters} color="red" aria-label="Clear Filter Button">
                 Clear Filters
             </Button>
         </Flex>
@@ -34,7 +34,7 @@ export const Doodles = ({
     if (showFavorites && !favoritesFilter) return (
         <Flex justify="center" align="center" direction="column" gap={12}>
             <Text fz="xl" c="white" fw={500}> You have not favorited any doodles yet! You can favorite a doodle by on clicking the heart icon.</Text>
-            <Button onClick={clearFilters} color="red">
+            <Button onClick={clearFilters} color="red" aria-label="Clear Filter Button">
                 Clear Filters
             </Button>
         </Flex>

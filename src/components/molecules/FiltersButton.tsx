@@ -20,6 +20,7 @@ export const FiltersButton = () => {
             <Button
                 leftIcon={<SettingsIcon size="20" />}
                 onClick={toggleFilterModalOpened}
+                aria-label="Open Filter Menu Button"
             >
                 Filters
             </Button>

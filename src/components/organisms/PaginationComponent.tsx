@@ -68,6 +68,7 @@ export const PaginationComponent = ({
                     return `${newValue}`;
                 }}
                 styles={{ input: { width: 54, textAlign: 'center' } }}
+                aria-label="Page Number Input"
             />
             <Text> of {totalPages} </Text>
             <Button

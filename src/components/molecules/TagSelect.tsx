@@ -53,6 +53,7 @@ export const TagSelect = ({
             searchable
             maxSelectedValues={1}
             label={showLabel && "Tag"}
+            aria-label="Tag Select"
         />
     )
 }
