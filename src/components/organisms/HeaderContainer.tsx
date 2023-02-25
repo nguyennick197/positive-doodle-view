@@ -18,7 +18,7 @@ export const HeaderContainer = () => {
                 </div>
                 {windowSize > 800 && (
                     <>
-                        <SearchInput />
+                        <SearchInput showSearchIcon/>
                         <TagSelect />
                         <Flex>
                             <FavoritesSwitch />

@@ -53,7 +53,7 @@ export const FilterModal = ({
             <Divider />
             <Space h={60} />
             <Flex direction="column" align="center" justify="center" gap={40}>
-                <SearchInput showLabel />
+                <SearchInput showLabel showSearchIcon/>
                 <TagSelect showLabel />
                 <FavoritesSwitch showLabel />
             </Flex>
