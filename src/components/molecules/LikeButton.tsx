@@ -17,7 +17,7 @@ export const LikeButton = ({
     }
 
     return (
-        <SvgButton active={liked} onClick={handleLikeClick} isHeart>
+        <SvgButton active={liked} onClick={handleLikeClick} isHeart aria-label="Save Doodle Button">
             <HeartIcon />
         </SvgButton>
     );
