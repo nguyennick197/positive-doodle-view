@@ -19,9 +19,11 @@ export const FavoritesSwitch = ({
         setPage(1);
     }
 
+    const labelText = showFavorites ? "Showing Favorites" : "Showing All";
+
     return (
         <Flex gap={12}>
-            {showLabel && <Text> Show Favorites </Text> }
+            {showLabel && <Text> {labelText} </Text> }
             <Switch
                 size="md"
                 onLabel={<HeartIcon size="20" fill="red" />}
